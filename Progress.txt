@@ -2,3 +2,4 @@ Filter by Category : Done
 Paging : Done
 CRUD : Done
 Upload Image with Preview : Done
+Click to Preview image : Done
