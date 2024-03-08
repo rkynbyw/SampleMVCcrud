@@ -6,7 +6,16 @@
         pageNumber = Convert.ToInt32(ViewData["pageNumber"]);
     }
 }
-
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img id="modalImage" src="#" class="img-fluid" alt="Preview Image">
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Article Page</h1>
@@ -76,7 +85,8 @@
                             <td>@article.Details</td>
                             <td>@article.PublishDate</td>
                             <td>
-                                <img src="~/picts/@article.Pic" class="img-thumbnail" alt="..." Width="100">
+                                <img src="~/picts/@article.Pic" class="img-thumbnail articleImage" alt="..." Width="100">
+
                             </td>
                             <td>
                                 <a asp-action="Edit" asp-route-id="@article.ArticleID"
@@ -105,3 +115,19 @@
     </div>
 
 </div>
+
+@section scripts {
+    <script>
+        var articleImages = document.querySelectorAll('.articleImage');
+        var modalImage = document.getElementById('modalImage');
+
+        articleImages.forEach(function (image) {
+            image.addEventListener('click', function () {
+
+                modalImage.src = image.src;
+
+                $('#imageModal').modal('show');
+            });
+        });
+    </script>
+}

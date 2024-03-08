@@ -412,6 +412,42 @@
     <!-- Custom scripts for all pages-->
     <script src="~/startbootstrap/js/sb-admin-2.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    @section scripts {
+        <script>
+            // JavaScript to display and hide the uploaded image
+            var formFileInput = document.getElementById('formFile');
+            var previewImage = document.getElementById('previewImage');
+            var currentImage = document.getElementById('current-image');
+
+            if (formFileInput && previewImage && currentImage) {
+                formFileInput.addEventListener('change', function (event) {
+                    var fileInput = event.target;
+                    var files = fileInput.files;
+
+                    if (files.length > 0) {
+                        // Show the preview image
+                        previewImage.style.display = 'block';
+                        currentImage.style.display = 'none';
+
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            previewImage.src = e.target.result;
+                        };
+
+                        reader.readAsDataURL(files[0]);
+                    } else {
+                        // Hide the preview image and show the current image
+                        previewImage.style.display = 'none';
+                        currentImage.style.display = 'block';
+                    }
+                });
+            } else {
+                console.error("One or more elements with id 'formFile', 'previewImage', or 'current-image' not found.");
+            }
+        </script>
+    }
+
 </body>
 
 </html>

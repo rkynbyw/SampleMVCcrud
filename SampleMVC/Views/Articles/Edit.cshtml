@@ -33,7 +33,13 @@
                         <input type="text" class="form-control" name="CategoryID" placeholder="Insert Category"
                             value="@Model.CategoryID" />
                     </div>
-                    <img src="~/picts/@Model.Pic" class="img-thumbnail" alt="..." Width="500">
+                    <label for="currentImage"></label>
+                    <img id="currentImage" src="~/picts/@Model.Pic" class="img-thumbnail" alt="..." Width="500">
+                    <div class="form-group">
+                        <label>Preview:</label>
+                        <img id="previewImage" class="img-thumbnail" style="display: none;" alt="Preview Image"
+                            width="500" />
+                    </div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                         </div>
@@ -42,14 +48,49 @@
                             <input type="file" class="custom-file-input" id="formFile" name="ImageArticle">
                         </div>
                     </div>
+
                     @Html.RadioButton("isApproved", "True", true) Approved
                     @Html.RadioButton("isApproved", "False") Approved
                     <br>
+
                     <input type="Submit" value="Edit" class="btn btn-success btn-sm" />
                 </form>
             </div>
         </div>
-
     </div>
-
 </div>
+
+@section scripts {
+    <script>
+        // JavaScript to display and hide the uploaded image
+        var formFileInput = document.getElementById('formFile');
+        var previewImage = document.getElementById('previewImage');
+        var currentImage = document.getElementById('currentImage');
+
+        if (formFileInput && previewImage && currentImage) {
+            formFileInput.addEventListener('change', function (event) {
+                var fileInput = event.target;
+                var files = fileInput.files;
+
+                if (files.length > 0) {
+                    // Show the preview image
+                    previewImage.style.display = 'block';
+                    currentImage.style.display = 'none';
+
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        previewImage.src = e.target.result;
+                    };
+
+                    reader.readAsDataURL(files[0]);
+                } else {
+                    // Hide the preview image and show the current image
+                    previewImage.style.display = 'none';
+                    currentImage.style.display = 'block';
+                }
+            });
+        } else {
+            console.error("One or more elements with id 'formFile', 'previewImage', or 'current-image' not found.");
+        }
+    </script>
+}
