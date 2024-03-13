@@ -14,12 +14,16 @@
                 @Html.Raw(ViewData["message"])
                 <form method="post" action="/Articles/Create" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="Title">Article Title :</label>
-                        <input type="text" class="form-control" name="Title" placeholder="Insert Article Title" />
+                        <label asp-validation-for="Title" for="Title">Article Title :</label>
+                        <input asp-validation-for="Title" type="text" class="form-control" id="Title" name="Title"
+                            placeholder="Insert Article Title" />
+                        <span asp-validation-for="Title"></span>
                     </div>
                     <div class="form-group">
-                        <label for="Details">Details :</label>
-                        <input type="text" class="form-control" name="Details" placeholder="Insert Article Detail" />
+                        <label asp-validation-for="Details" for="Details">Details :</label>
+                        <input asp-validation-for="Details" type="text" class="form-control" id="Details" name="Details"
+                            placeholder="Insert Article Detail" />
+                        <span asp-validation-for="Details"></span>
                     </div>
                     @* <div class="form-group">
                     <label for="CategoryName">Category :</label>
@@ -30,8 +34,10 @@
                     <input type="text" class="form-control" name="PublishDate" placeholder="Insert Publish Date" />
                     </div> *@
                     <div class="form-group">
-                        <label for="CategoryName">Category :</label>
-                        <input type="text" class="form-control" name="CategoryID" placeholder="Insert Category" />
+                        <label asp-validation-for="CategoryID" for="CategoryName">Category :</label>
+                        <input asp-validation-for="CategoryID" type="text" class="form-control" name="CategoryID"
+                            placeholder="Insert Category" />
+                        <span asp-validation-for="CategoryID"></span>
                     </div>
                     @* <div class="form-group">
                     <label for="IsApprove">IsApprove :</label>
@@ -63,3 +69,9 @@
     </div>
 
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

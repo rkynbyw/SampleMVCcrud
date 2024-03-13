@@ -9,5 +9,8 @@ namespace MyWebFormApp.DAL.Interfaces
         User GetByUsername(string username);
         User Login(string username, string password);
         void ChangePassword(string username, string newPassword);
+
+        User GetUserWithRoles(string username);
+
     }
 }

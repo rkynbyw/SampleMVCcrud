@@ -113,7 +113,7 @@ namespace MyWebFormApp.DAL
             using (SqlConnection conn = new SqlConnection(GetConnectionString()))
             {
                 var strSql = @"insert into Articles(CategoryID, Title, Details, IsApproved, Pic) 
-                               values(@CategoryID, @Title, @Details, @IsApproved, @Pic)";
+                                values(@CategoryID, @Title, @Details, @IsApproved, @Pic)";
                 var param = new
                 {
                     CategoryID = entity.CategoryID,

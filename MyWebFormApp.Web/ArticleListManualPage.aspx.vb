@@ -128,7 +128,7 @@ Public Class ArticleListManualPage
             _article.Title = txtTitle.Text
             _article.Details = txtDetail.Text
             _article.IsApproved = If(chkApprovedEdit.Checked, 1, 0)
-            _article.Pic = fileName
+            _article.Pic = fileName 
             _articleBLL.Insert(_article)
 
             ltMessage.Text = "<span class='alert alert-success'>Artice added successfully</span><br/><br/>"

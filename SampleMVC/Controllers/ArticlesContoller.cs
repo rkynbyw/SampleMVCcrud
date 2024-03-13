@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MyWebFormApp.BLL.DTOs;
 using MyWebFormApp.BLL.Interfaces;
+using System.Text.Json;
 
 namespace SampleMVC.Controllers;
 
@@ -24,6 +25,16 @@ public class ArticlesController : Controller
 
     public IActionResult Index(int pageNumber = 1, int pageSize = 7, string search = "", string act = "", int? categoryId = null)
     {
+        if (HttpContext.Session.GetString("user") != null)
+        {
+            var userDto = JsonSerializer.Deserialize<UserDTO>(HttpContext.Session.GetString("user"));
+            ViewBag.role = userDto.Roles;
+        }
+        else
+        {
+            ViewBag.Message = "Please Login";
+        }
+
         if (TempData["message"] != null)
         {
             ViewData["message"] = TempData["message"];
@@ -78,6 +89,10 @@ public class ArticlesController : Controller
     [HttpPost]
     public IActionResult Create(ArticleCreateDTO articleCreate, IFormFile imageArticle)
     {
+        if (!ModelState.IsValid)
+        {
+            return View();
+        }
         try
         {
             if (imageArticle != null && imageArticle.Length > 0)

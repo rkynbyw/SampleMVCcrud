@@ -1,0 +1,140 @@
+﻿@model IEnumerable<MyWebFormApp.BLL.DTOs.UserDTO>
+
+@{
+    ViewData["Title"] = "ListUser";
+}
+
+<div class="row">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">User Role Page</h1>
+    </div>
+
+    
+
+    <div class="col-lg-12">
+        <!-- Basic Card Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">List User With Role Page</h6>
+            </div>
+            <div class="card-body">
+                @if (TempData["Message"] != null)
+                {
+                    <div class="alert alert-info">
+                        @TempData["Message"]
+                    </div>
+                }
+
+                <div class="row">
+                    <div class="col">
+                        <h5>Add Role to User</h5>
+                        
+                        <form class="form-inline mb-3" method="post" action="/Users/AddRoleToUser">
+                            <label for="Username" class="mr-1">Username</label>
+                            <select name="username" class="form-control mr-3"
+                                    asp-items="@ViewBag.Users">
+                                <option value="0">--Select User--</option>
+                            </select>
+
+                            <label for="Roles" class="mr-1">Roles</label>
+                            <select name="roleId" class="form-control mr-3"
+                                    asp-items="@ViewBag.Roles">
+                                <option value="0">--Select Roles--</option>
+                            </select>
+
+                            <button type="Submit" class="btn btn-primary mb-2">Add</button>
+                        </form>
+                    </div>
+                    <div class="col">
+                        <h5>Remove Role from User</h5>
+                        <form class="form-inline mb-3 method="post" action="">
+                            <label for="Username" class="mr-1">Username</label>
+                            <select class="form-control mr-3"
+                                    asp-items="@ViewBag.Users">
+                                <option value="0">--Select User--</option>
+                            </select>
+
+                            <label for="Roles" class="mr-1">Roles</label>
+                            <select class="form-control mr-3"
+                                    asp-items="@ViewBag.Roles">
+                                <option value="0">--Select Roles--</option>
+                            </select>
+
+                            <button type="Submit" class="btn btn-primary mb-2">Add</button>
+                        </form>
+                    </div>
+                </div>
+                
+
+                <p>
+                    <a asp-action="Create">Create New</a>
+                </p>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Username)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FirstName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.LastName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Address)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Telp)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Username)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FirstName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LastName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Address)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Telp)
+                                </td>
+                                <td>
+                                    @foreach (var role in item.Roles)
+                                    {
+                                        <span class="badge badge-primary">@role.RoleName</span>
+                                        <span> </span>
+                                    }
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
