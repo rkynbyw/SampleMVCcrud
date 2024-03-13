@@ -1,4 +1,24 @@
 @using Newtonsoft.Json
+@using SampleMVC.Helpers
+
+@{
+    UserDTO user = null;
+    if (Context.Session.GetString("user") != null)
+    {
+        user = JsonConvert.DeserializeObject<UserDTO>(Context.Session.GetString("user"));
+    }
+    else
+    {
+        user = new UserDTO();
+        user.Roles = new List<RoleDTO>()
+        {
+            new RoleDTO
+            {
+                RoleID=1,RoleName="anonymous"
+            }
+        };
+    }
+}
 
 
 <!DOCTYPE html>
@@ -102,75 +122,80 @@
             @* <div class="sidebar-heading">
             Addons
             </div> *@
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item active">
-                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages1" aria-expanded="true"
-                    aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Admin Action</span>
-                </a>
-                <div id="collapsePages1" class="collapse" aria-labelledby="headingPages"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        @* <h6 class="collapse-header">Login Screens:</h6> *@
-                        <a class="collapse-item" href="login.html">User Profile</a>
-                        <a class="collapse-item" href="register.html">User Role Management</a>
-                        <a class="collapse-item" href="register.html">Article List</a>
-                        <a class="collapse-item" href="register.html">Category List</a>
-                        @* <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+            @if (Auth.CheckRole("reader,admin,contributor", user.Roles.ToList()))
+            {
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages1" aria-expanded="true"
+                       aria-controls="collapsePages">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Admin Action</span>
+                    </a>
+                    <div id="collapsePages1" class="collapse" aria-labelledby="headingPages"
+                         data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            @* <h6 class="collapse-header">Login Screens:</h6> *@
+                            <a class="collapse-item" href="login.html">User Profile</a>
+                            <a class="collapse-item" href="register.html">User Role Management</a>
+                            <a class="collapse-item" href="register.html">Article List</a>
+                            <a class="collapse-item" href="register.html">Category List</a>
+                            @* <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Other Pages:</h6>
                         <a class="collapse-item" href="404.html">404 Page</a>
                         <a class="collapse-item active" href="blank.html">Blank Page</a> *@
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
 
-            <hr class="sidebar-divider">
+                <hr class="sidebar-divider">
 
-            <li class="nav-item active">
-                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages2" aria-expanded="true"
-                    aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Contributor Action</span>
-                </a>
-                <div id="collapsePages2" class="collapse" aria-labelledby="headingPages"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        @* <h6 class="collapse-header">Login Screens:</h6> *@
-                        <a class="collapse-item" href="login.html">User Profile</a>
-                        <a class="collapse-item" href="register.html">Article Management</a>
-                        @* <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages2" aria-expanded="true"
+                       aria-controls="collapsePages">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Contributor Action</span>
+                    </a>
+                    <div id="collapsePages2" class="collapse" aria-labelledby="headingPages"
+                         data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            @* <h6 class="collapse-header">Login Screens:</h6> *@
+                            <a class="collapse-item" href="login.html">User Profile</a>
+                            <a class="collapse-item" href="register.html">Article Management</a>
+                            @* <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Other Pages:</h6>
                         <a class="collapse-item" href="404.html">404 Page</a>
                         <a class="collapse-item active" href="blank.html">Blank Page</a> *@
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
 
-            <hr class="sidebar-divider">
+                <hr class="sidebar-divider">
 
-            <li class="nav-item active">
-                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages3" aria-expanded="true"
-                    aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Reader Action</span>
-                </a>
-                <div id="collapsePages3" class="collapse" aria-labelledby="headingPages"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        @* <h6 class="collapse-header">Login Screens:</h6> *@
-                        <a class="collapse-item" href="register.html">Article List</a>
-                        @* <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages3" aria-expanded="true"
+                       aria-controls="collapsePages">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Reader Action</span>
+                    </a>
+                    <div id="collapsePages3" class="collapse" aria-labelledby="headingPages"
+                         data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            @* <h6 class="collapse-header">Login Screens:</h6> *@
+                            <a class="collapse-item" href="register.html">Article List</a>
+                            @* <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Other Pages:</h6>
                         <a class="collapse-item" href="404.html">404 Page</a>
                         <a class="collapse-item active" href="blank.html">Blank Page</a> *@
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
+            }
+
+            }
+            
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">

@@ -61,9 +61,6 @@
                 </select>
                 <input type="submit" value="Filter" class="btn btn-primary ml-3" />
                 </form> *@
-
-                
-
                 @{
                     if (ViewBag.role != null && ViewBag.role.Count > 0)
                     {
@@ -117,9 +114,9 @@
                                             if (role.RoleName == "contributor")
                                             {
                                                 <a asp-action="Edit" asp-route-id="@article.ArticleID"
-                                                   class="btn btn-warning btn-sm">Edit</a>
+                                                    class="btn btn-warning btn-sm">Edit</a>
                                                 <a asp-action="Delete" asp-route-id="@article.ArticleID"
-                                                   class="btn btn-danger btn-sm">Delete</a>
+                                                    class="btn btn-danger btn-sm">Delete</a>
 
                                             }
                                             else if (role.RoleName == "reader")
@@ -130,7 +127,7 @@
 
                                         }
                                     }
-                
+
 
                                 }
 
