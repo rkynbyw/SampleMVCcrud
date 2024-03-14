@@ -70,7 +70,7 @@
                     <a asp-action="Create">Create New</a>
                 </p>
 
-                <table class="table">
+                <table class="table" id="tbluser">
                     <thead>
                         <tr>
                             <th>
@@ -91,7 +91,8 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Telp)
                             </th>
-                            <th></th>
+                            <th>Roles</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -138,3 +139,28 @@
     </div>
 </div>
 
+@* @section Scripts {
+    @{
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="~/startbootstrap/vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="~/startbootstrap/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $('#tbluser').DataTable();
+            });
+            
+        </script>
+    }
+} *@
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#tbluser').DataTable();
+        });
+    </script>
+
+    <script src="~/startbootstrap/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/startbootstrap/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+}
